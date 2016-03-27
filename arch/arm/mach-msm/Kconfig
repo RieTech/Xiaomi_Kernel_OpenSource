@@ -1078,4 +1078,12 @@ config MSM_PP2S_FEMTO
 	  Support for being notified relative to a PP2S pulse
 	  Select Y if you want this notification to manifest.
 	  If unsure, select N.
+
+config FORCE_FAST_CHARGE
+	bool "Increase input current limit to 900mA when charging via USB"
+	default y
+	help
+	  A simple sysfs interface to increase input current limit to
+	  900mA when charging via USB.
+
 endif
