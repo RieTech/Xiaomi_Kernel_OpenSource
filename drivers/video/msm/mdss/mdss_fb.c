@@ -215,15 +215,14 @@ static void mdss_fb_set_bl_brightness(struct led_classdev *led_cdev,
 	if (value > mfd->panel_info->brightness_max)
 		value = mfd->panel_info->brightness_max;
 
+	/* This maps android backlight level 0 to 255 into
+	   driver backlight level 0 to bl_max with rounding */
+	MDSS_BRIGHT_TO_BL(bl_lvl, value, mfd->panel_info->bl_max,
+				mfd->panel_info->brightness_max);
+		if ((bl_lvl < 3) && (bl_lvl != 0)) {
 
-	if (mfd->panel_info->bl_min == 1) {
-		mfd->panel_info->bl_min = 7;
-		WINGTECH_MDSS_BRIGHT_TO_BL(bl_lvl, value, mfd->panel_info->bl_min, mfd->panel_info->bl_max,
-			7, mfd->panel_info->brightness_max);
-	}
-	if (bl_lvl && !value)
-		bl_lvl = 0;
-
+			bl_lvl = 3;
+		}
 
 	if (!bl_lvl && value)
 		bl_lvl = 1;
