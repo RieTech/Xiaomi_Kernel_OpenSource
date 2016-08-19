@@ -473,6 +473,29 @@ static inline int mdss_panel_get_htotal(struct mdss_panel_info *pinfo, bool
 		pinfo->lcdc.h_pulse_width;
 }
 
+/*
+ * mdss_panel_is_power_off: - checks if a panel is off
+ * @panel_power_state: enum identifying the power state to be checked
+ */
+static inline bool mdss_panel_is_power_off(int panel_power_state)
+{
+	return (panel_power_state == false);
+}
+
+/**
+ * mdss_panel_is_panel_power_on: - checks if a panel is on
+ * @panel_power_state: enum identifying the power state to be checked
+ *
+ * A panel is considered to be on as long as it can accept any commands
+ * or data. Sometimes it is posible to program the panel to be in a low
+ * power non-interactive state. This function returns false only if panel
+ * has explicitly been turned off.
+ */
+static inline bool mdss_panel_is_power_on(int panel_power_state)
+{
+	return !mdss_panel_is_power_off(panel_power_state);
+}
+
 int mdss_register_panel(struct platform_device *pdev,
 	struct mdss_panel_data *pdata);
 
