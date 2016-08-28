@@ -193,6 +193,19 @@ if [ "$BUILD_WITH_BIT" == 'YES' ]; then
 	exec_command cp $KERNEL_DIR/drivers/media/radio/radio-iris-transport.ko $RELEASE_DIR/system/lib/modules/radio-iris-transport.ko
 
 	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
+	# copy WCNSS_cfg.dat to /system/etc/firmware/wlan/prima/
+	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
+	echo "***** Copying WCNSS_cfg.dat $RELEASE_DIR *****"
+	exec_command mkdir -p $RELEASE_DIR/system/etc/firmware/wlan/prima/
+	exec_command cp $AK2_DIR/mi8wifi/WCNSS_cfg.dat $RELEASE_DIR/system/etc/firmware/wlan/prima/WCNSS_cfg.dat
+	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
+	# copy WCNSS_qcom_cfg.ini to /data/misc/wifi/
+	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
+	echo "***** Copying WCNSS_qcom_cfg.ini $RELEASE_DIR *****"
+	exec_command mkdir -p $RELEASE_DIR/data/misc/wifi/
+	exec_command cp $AK2_DIR/mi8wifi/WCNSS_qcom_cfg.ini $RELEASE_DIR/data/misc/wifi/
+
+	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
 	# copy zImage and dt.img to boot_miui8_extracted
 	# for our boot.img preparation
 	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
