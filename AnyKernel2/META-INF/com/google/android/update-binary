@@ -92,7 +92,7 @@ if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.mi8wifi)" == 1 ]; then
   ui_print " ";
   ui_print "Pushing WiFi required config/binaries...";
   mount -o remount,rw /system;
-  cp -rf /tmp/anykernel/mi8wifi/* /system/etc/firmware/wlan/prima/;
+  cp -f /tmp/anykernel/mi8wifi/* /system/etc/firmware/wlan/prima/;
   set_perm_recursive 0 0 0755 0644 /system/etc/firmware/wlan/prima/;
   mount -o remount,ro /system;
 fi;
