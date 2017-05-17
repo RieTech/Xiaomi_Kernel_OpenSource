@@ -1032,7 +1032,7 @@ static int msm_pcie_enable(struct msm_pcie_dev_t *dev, u32 options)
 	PCIE_DBG("number of PHY retries: %ld\n", retries);
 
 	if (pcie_phy_is_ready(dev))
-		pr_info("PCIe RC %d PHY is ready!\n", dev->rc_idx);
+		PCIE_DBG(dev, "PCIe RC%d PHY is ready!\n", dev->rc_idx);
 	else {
 		pr_err("PCIe PHY RC %d failed to come up!\n", dev->rc_idx);
 		ret = -ENODEV;
