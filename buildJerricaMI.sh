@@ -30,7 +30,7 @@ TOOL_CHAIN_ARM=arm-eabi-
 #@@@@@@@@@@@@@@@@@@@@@@ DEFINITIONS BEGIN @@@@@@@@@@@@@@@@@@@@@@@@@@@#
 ##### Tool-chain, you should get it yourself which tool-chain 
 ##### you would like to use
-KERNEL_TOOLCHAIN=/media/premaca/working/KERNEL_COMPILE/arm-eabi-4.8/bin/$TOOL_CHAIN_ARM
+KERNEL_TOOLCHAIN=/root/arm-eabi-4.8/bin/$TOOL_CHAIN_ARM
 
 ## This script should be inside the kernel-code directory
 KERNEL_DIR=$PWD
@@ -193,19 +193,6 @@ if [ "$BUILD_WITH_BIT" == 'YES' ]; then
 	exec_command cp $KERNEL_DIR/drivers/media/radio/radio-iris-transport.ko $RELEASE_DIR/system/lib/modules/radio-iris-transport.ko
 
 	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
-	# copy WCNSS_cfg.dat to /system/etc/firmware/wlan/prima/
-	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
-	echo "***** Copying WCNSS_cfg.dat $RELEASE_DIR *****"
-	exec_command mkdir -p $RELEASE_DIR/system/etc/firmware/wlan/prima/
-	exec_command cp $AK2_DIR/mi8wifi/WCNSS_cfg.dat $RELEASE_DIR/system/etc/firmware/wlan/prima/WCNSS_cfg.dat
-	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
-	# copy WCNSS_qcom_cfg.ini to /data/misc/wifi/
-	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
-	echo "***** Copying WCNSS_qcom_cfg.ini $RELEASE_DIR *****"
-	exec_command mkdir -p $RELEASE_DIR/data/misc/wifi/
-	exec_command cp $AK2_DIR/mi8wifi/WCNSS_qcom_cfg.ini $RELEASE_DIR/data/misc/wifi/
-
-	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
 	# copy zImage and dt.img to boot_miui8_extracted
 	# for our boot.img preparation
 	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
@@ -227,10 +214,8 @@ else
 	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
 	# copy modules to AnyKernel2/modules/
 	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
-	echo "***** Copying wlan.ko to $AK2_DIR *****"
-	exec_command cp $KERNEL_DIR/drivers/staging/prima/wlan.ko $AK2_DIR/modules/wlan.ko
-	echo "***** Copying radio-iris-transport.ko to $AK2_DIR *****"
-	exec_command cp $KERNEL_DIR/drivers/media/radio/radio-iris-transport.ko $AK2_DIR/modules/radio-iris-transport.ko
+	echo "***** Copying Modules to $AK2_DIR *****"
+	exec_command cp `find . -name "*.ko"` $AK2_DIR/modules/
 
 	#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
 	# copy zImage and dt.img to boot_miui8_extracted
