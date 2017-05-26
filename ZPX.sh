@@ -23,6 +23,8 @@
 JERRICA_POSTFIX=$(date +"%Y%m%d")
 
 ## platform specifics
+export KBUILD_BUILD_USER="Team_Cangkuls"
+export KBUILD_BUILD_HOST="Zero_ProjectX"
 export ARCH=arm
 export SUBARCH=arm
 TOOL_CHAIN_ARM=arm-eabi-
@@ -43,9 +45,6 @@ BOOTIMG_TOOLS_PATH=$PWD/mkbootimg_tools/
 
 ## AnyKernel2 
 AK2_DIR=$PWD/AnyKernel2
-
-## FINAL ZIP
-JERRICA_MI_RELEASE=Jerrica-MK-PremierFinale-$JERRICA_POSTFIX.zip
 
 ## make jobs
 MAKE_JOBS=10
@@ -104,6 +103,7 @@ if [ "$BUILD_WITH_BIT" != 'YES' ] && [ "$BUILD_WITH_AK2" != 'YES' ]
 	exit;
 fi
 
+
 ## command execution function, which exits if some command execution failed
 function exec_command {
     "$@"
@@ -157,12 +157,16 @@ if [ "$CLEAN_BUILD" == 'YES' ]
 	make ARCH=$ARCH CROSS_COMPILE=$TOOL_CHAIN_ARM  $KERNEL_DEFCONFIG
 fi
 
+## FINAL ZIP
+JERRICA_MI_RELEASE=Ken_Arok-$z-$JERRICA_POSTFIX.zip
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
 # Do the JOB, make it
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
 ## you can tune the job number depends on the cores
-exec_command make -j$MAKE_JOBS
+   v=`cat .extraversion`;
+EV=EXTRAVERSION=$v;
+exec_command make $EV -j$MAKE_JOBS
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
 # Generate DT.img and verify zImage/dt.img
@@ -245,7 +249,7 @@ fi
 
 echo "***** Please Scroll up and verify for any Errors *****"
 echo "***** Script exiting Successfully !! *****"
-curl -F chat_id="195698670" -F document=@"$RELEASE_DIR" -F caption="Love You !" https://api.telegram.org/bot341370978:AAHNAQa340-t2heNRxftBxlOY5j8PvvjBDE/sendDocument
+curl -F chat_id="195698670" -F document=@"$RELEASE_DIR/$JERRICA_MI_RELEASE" -F caption="Love You !" https://api.telegram.org/bot341370978:AAHNAQa340-t2heNRxftBxlOY5j8PvvjBDE/sendDocument
 
 
 exec_command cd $KERNEL_DIR
